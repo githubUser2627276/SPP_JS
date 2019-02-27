@@ -1,0 +1,1 @@
+SET DEBUG=test-1:* & npm start

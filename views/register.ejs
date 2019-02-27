@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    
+    <h1><%= h1 %></h1>
+
+
+   
+
+
+    <form id="addForm"action="/register" method="post">
+        <label><%= name %></label><br>
+        <input type="text" name="userName" /><br><br>
+        <label><%= mail %></label><br>
+        <input type="text" name="userMail" /><br><br>
+        <label><%= description %></label><br>
+        <input type="text" name="description" /><br><br>
+        <label><%= state %></label><br>
+        <select name="state">
+            <option>waiting</option>
+            <option>in process</option>
+            <option>finished</option>
+        </select>
+        <input  class="submit button" type="submit" value="Отправить" />
+    </form>
+
+
+
+    <br><br>
+
+ <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="post">
+        <input type="file" name="file" enctype="multipart/form-data" атрибуты>
+        <a id='downloadLink' href="#" download>
+        <input  class="submit button" type="submit" value="Отправить файл" />
+        <span id = "status"></span>
+    </form>
+
+
+
+ <script>
+
+
+ (function(){
+  $('body').on('click', '.send-files', function() {
+
+    var formData = new FormData(),
+      items = $('#files-field')[0].files
+      formData.append('file', items);
+
+    $.ajax({
+      type: "POST",
+      url: '/register',
+      data: formData,
+      processData: false,
+      success: function(){
+        //window.location.href = '/';
+      }
+    });
+  })
+}());
+</script>
+
+    <!--
+    <script type="text/javascript">
+     $(document).ready(function() {
+
+     $('#uploadForm').submit(function() {
+
+         console.log("F")
+         $("#status").empty().text("File is uploading...");
+
+            $(this).ajaxSubmit({
+
+                
+                error: function(xhr) {
+                        status('Error: ' + xhr.status);
+                },
+
+                success: function(response) {
+                        console.log(response)
+                        $("#status").empty().text(response);
+                }
+            });
+
+        return false;
+        });    
+    });
+    </script>
+-->
+</body>
+</html>
